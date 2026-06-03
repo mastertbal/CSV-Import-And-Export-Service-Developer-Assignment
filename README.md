@@ -20,7 +20,7 @@ This project is a backend application that imports students data from a csv file
 4. Build the program
 5. Run the program
 
-## EXPECTED CSV FORMAT AND COLUMN DEFINITIOS
+## EXPECTED CSV FORMAT AND COLUMN DEFINITION
 There is an endpoint to export the student data in the database into a csv file. The name of the file will be students.csv
 The columns in the csv file are:
 1. AGE
