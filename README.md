@@ -38,7 +38,7 @@ The file size limit is 2MB as specified in the application.properties like so:
 The expected file type is .csv. Any other file type will throw an exception
 
 ## HOW TO ACCESS SWAGGER UI
-You can access swagger UI using this link: http://localhost:8080/student.html
+You can access swagger UI using this link: http://localhost:8080/swagger-ui/index.html
 
 ## ANY ASSUMPTION AND DESIGN DESICION MADE
 One of the design decision i made is to indicate the column name that its value could not be fetched. The failure output is like so:
