@@ -52,10 +52,11 @@ One of the design decision i made is to indicate the column name that its value 
 ```
 
 ## RESTFUL ENDPONT DETAILS
-| METHOD | URL | PURPOSE |
-| ------ | --- | ------- |
-| POST    | http://localhost:8080/api/v1/students/import | Import a csv file containing student data and persisting them into the database |
-| GET    | http://localhost:8080/api/v1/students | Get all students in the database |
-| GET    | http://localhost:8080/api/v1/students/{id} | Get a student using the student id|
-| GET    | http://localhost:8080/api/v1/students/export | Get all students in the database and export them into a csv file |
+| METHOD | URL                                                  | PURPOSE                                                                         |
+| ------ |------------------------------------------------------|---------------------------------------------------------------------------------|
+| POST    | http://localhost:8080/api/v1/students/create-student | Create a student entity and persist it in the database                          |
+| POST    | http://localhost:8080/api/v1/students/import         | Import a csv file containing student data and persisting them into the database |
+| GET    | http://localhost:8080/api/v1/students                | Get all students in the database                                                |
+| GET    | http://localhost:8080/api/v1/students/{id}           | Get a student using the student id                                              |
+| GET    | http://localhost:8080/api/v1/students/export         | Get all students in the database and export them into a csv file                |
 
