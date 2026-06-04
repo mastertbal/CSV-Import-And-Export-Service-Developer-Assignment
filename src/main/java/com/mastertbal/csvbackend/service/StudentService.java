@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface StudentService {
 
+    StudentDto createStudent(StudentDto studentDto);
     ImportSummary uploadStudents(MultipartFile file);
     List<StudentDto> getImportedStudents();
     StudentDto getStudentById(Long id);

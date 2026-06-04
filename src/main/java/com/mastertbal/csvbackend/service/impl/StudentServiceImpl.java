@@ -32,6 +32,17 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     @Override
+    public StudentDto createStudent(StudentDto studentDto) {
+        Student student = toStudent(studentDto);
+        try {
+            Student savedStudent = studentRepository.save(student);
+            return toStudentDto(savedStudent);
+        }catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public ImportSummary uploadStudents(MultipartFile file) {
         if (file == null) throw new InvalidFileFormatException("File not available");
         int index = file.getOriginalFilename().indexOf('.');
@@ -197,6 +208,16 @@ public class StudentServiceImpl implements StudentService {
                 .email(student.getEmail())
                 .age(student.getAge())
                 .course(student.getCourse())
+                .build();
+    }
+
+    private Student toStudent(StudentDto studentDto) {
+        return Student.builder()
+                .firstName(studentDto.getFirstName())
+                .lastName(studentDto.getLastName())
+                .email(studentDto.getEmail())
+                .age(studentDto.getAge())
+                .course(studentDto.getCourse())
                 .build();
     }
 }

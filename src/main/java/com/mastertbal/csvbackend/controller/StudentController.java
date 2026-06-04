@@ -6,7 +6,9 @@ import com.mastertbal.csvbackend.service.StudentService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,13 +22,22 @@ public class StudentController {
 
     private final StudentService studentService;
 
+    @Tag(name = "Create a student", description = "It creates a new student entity and persist it in the database")
+    @PostMapping("/create-student")
+    public ResponseEntity<StudentDto> createStudent(
+            @Parameter(required = true, description = "An object that represent a student entity to be persisted")
+            @Valid @RequestBody StudentDto studentDto
+    ) {
+        return new ResponseEntity<>(studentService.createStudent(studentDto), HttpStatus.CREATED);
+    }
+
     @Tag(name = "Upload students data", description = "It uses a csv file to upload the student data and persist them into the database")
     @PostMapping("/import")
     public ResponseEntity<ImportSummary> uploadStudents(
             @Parameter(required = true, description = "An object that represent the csv file to be imported")
             @RequestPart MultipartFile file
     ) {
-        return ResponseEntity.ok(studentService.uploadStudents(file));
+        return new ResponseEntity<>(studentService.uploadStudents(file), HttpStatus.CREATED);
     }
 
     @Tag(name = "Get students data", description = "It retrieves all student data in the database")
