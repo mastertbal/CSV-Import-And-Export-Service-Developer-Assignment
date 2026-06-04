@@ -88,6 +88,7 @@ public class StudentServiceImpl implements StudentService {
         StatefulBeanToCsv<StudentDto> writer = new StatefulBeanToCsvBuilder<StudentDto>(response.getWriter())
                 .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+                .withOrderedResults(true)
                 .build();
 
         writer.write(importedStudents);
