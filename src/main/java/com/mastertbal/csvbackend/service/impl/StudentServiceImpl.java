@@ -2,10 +2,12 @@ package com.mastertbal.csvbackend.service.impl;
 
 import com.mastertbal.csvbackend.exception.InvalidFileFormatException;
 import com.mastertbal.csvbackend.model.dto.StudentDto;
+import com.mastertbal.csvbackend.model.entity.FailureTable;
 import com.mastertbal.csvbackend.model.entity.Student;
 import com.mastertbal.csvbackend.model.response.Failure;
 import com.mastertbal.csvbackend.model.response.ImportSummary;
 import com.mastertbal.csvbackend.repository.StudentRepository;
+import com.mastertbal.csvbackend.service.FailureTableService;
 import com.mastertbal.csvbackend.service.StudentService;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
@@ -30,6 +32,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private final FailureTableService failureTableService;
 
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
@@ -188,8 +191,19 @@ public class StudentServiceImpl implements StudentService {
                 studentRepository.save(student);
             }
 
+            if (!failures.isEmpty()) {
+                // save failures into the database
+                failures.forEach(failure -> {
+                    failureTableService.saveFailure(
+                            FailureTable.builder()
+                                    .csvRow(failure.getRow())
+                                    .csvColumn(failure.getColumn())
+                                    .reason(failure.getReason())
+                                    .build()
+                    );
+                });
+            }
             ImportSummary summary = new ImportSummary(--csvRow, imported, failed, failures);
-            System.out.println(summary.toString());
             return summary;
         }catch (FileNotFoundException e) {
             throw new RuntimeException(e);

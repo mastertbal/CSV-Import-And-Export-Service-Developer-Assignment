@@ -2,6 +2,8 @@
 ---
 
 This project is a backend application that imports students data from a csv file and stores it inside a database, export the student data in the database to a csv file also.
+When persisting student entities gotten from a csv file into the database, some student rows in the csv file may not be persisted. The failed student row information are persisted
+into a separate table, and you can make a get request to get the failed information in a downloadable csv file format.
 
 ## TECH STACK
 * Maven
@@ -40,8 +42,8 @@ The expected file type is .csv. Any other file type will throw an exception
 ## HOW TO ACCESS SWAGGER UI
 You can access swagger UI using this link: http://localhost:8080/swagger-ui/index.html
 
-## ANY ASSUMPTION AND DESIGN DESICION MADE
-One of the design decision i made is to indicate the column name that its value could not be fetched. The failure output is like so:
+## ANY ASSUMPTION AND DESIGN DECISION MADE
+One of the design decision I made is to indicate the column name that its value could not be fetched. The failure output is like so:
 
 ```
         {
@@ -51,12 +53,15 @@ One of the design decision i made is to indicate the column name that its value 
         }
 ```
 
-## RESTFUL ENDPONT DETAILS
-| METHOD | URL                                                  | PURPOSE                                                                         |
-| ------ |------------------------------------------------------|---------------------------------------------------------------------------------|
-| POST    | http://localhost:8080/api/v1/students/create-student | Create a student entity and persist it in the database                          |
-| POST    | http://localhost:8080/api/v1/students/import         | Import a csv file containing student data and persisting them into the database |
-| GET    | http://localhost:8080/api/v1/students                | Get all students in the database                                                |
-| GET    | http://localhost:8080/api/v1/students/{id}           | Get a student using the student id                                              |
-| GET    | http://localhost:8080/api/v1/students/export         | Get all students in the database and export them into a csv file                |
+Secondly, I created a FailureTable in the database to represent an entity of student rows that could not be saved into the students table.
+
+## RESTFUL ENDPOINT DETAILS
+| METHOD | URL                                          | PURPOSE                                                                        |
+| ------ |----------------------------------------------|--------------------------------------------------------------------------------|
+| POST    | http://localhost:8080/api/v1/students/create-student | Create a student entity and persist it in the database                         |
+| POST    | http://localhost:8080/api/v1/students/import | Import a csv file containing student data and persisting them into the database |
+| GET    | http://localhost:8080/api/v1/students        | Get all students in the database                                               |
+| GET    | http://localhost:8080/api/v1/students/{id}   | Get a student using the student id                                             |
+| GET    | http://localhost:8080/api/v1/students/export | Get all students in the database and export them into a csv file               |
+| GET    | http://localhost:8080/api/v1/failures        | Get all failures in the database and export them into a csv file               |
 

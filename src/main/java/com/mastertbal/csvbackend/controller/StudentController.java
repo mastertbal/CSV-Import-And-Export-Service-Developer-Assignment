@@ -29,10 +29,10 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @Tag(name = "Create a student", description = "It creates a new student entity and persist it in the database")
     @PostMapping("/create-student")
     @Operation(
-            summary = "Create a student entity"
+            summary = "Create a student entity",
+            description = "It creates a new student entity and persist it in the database."
     )
     @ApiResponse(
             responseCode = "201",
@@ -45,10 +45,10 @@ public class StudentController {
         return new ResponseEntity<>(studentService.createStudent(studentDto), HttpStatus.CREATED);
     }
 
-    @Tag(name = "Upload students data", description = "It uses a csv file to upload the student data and persist them into the database")
     @PostMapping("/import")
     @Operation(
-            summary = "Create a student entities based on the number of rows in a csv file"
+            summary = "Create a student entities based on the number of rows in a csv file",
+            description = "It uses a csv file to upload the student data and persist them into the database."
     )
     @ApiResponse(
             responseCode = "201",
@@ -61,10 +61,11 @@ public class StudentController {
         return new ResponseEntity<>(studentService.uploadStudents(file), HttpStatus.CREATED);
     }
 
-    @Tag(name = "Get students data", description = "It retrieves all student data in the database")
+
     @GetMapping
     @Operation(
-            summary = "Get all student entities persisted in the database"
+            summary = "Get all student entities persisted in the database",
+            description = "It retrieves all student data in the database."
     )
     @ApiResponse(
             responseCode = "200",
@@ -74,10 +75,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getImportedStudents());
     }
 
-    @Tag(name = "Get a student", description = "It gets a student using the student id in database")
     @GetMapping("/{id}")
     @Operation(
-            summary = "Get a student by the student id"
+            summary = "Get a student by the student id",
+            description = "It gets a student using the student id in database."
     )
     @ApiResponse(
             responseCode = "200",
@@ -90,10 +91,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
-    @Tag(name = "Export student data", description = "Gets all the students in the database, populate them into a students.csv file and export the file for download in the client")
     @GetMapping("/export")
     @Operation(
-            summary = "Get all student entities in the database and export them into a csv file format"
+            summary = "Get all student entities in the database and export them into a csv file format",
+            description = "Gets all the students in the database, populate them into a students.csv file and export the file for download in the client"
     )
     @ApiResponse(
             responseCode = "200",
