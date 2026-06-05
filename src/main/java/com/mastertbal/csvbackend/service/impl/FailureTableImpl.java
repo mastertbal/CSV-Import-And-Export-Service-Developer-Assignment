@@ -1,6 +1,5 @@
 package com.mastertbal.csvbackend.service.impl;
 
-import com.mastertbal.csvbackend.model.dto.StudentDto;
 import com.mastertbal.csvbackend.model.entity.FailureTable;
 import com.mastertbal.csvbackend.repository.FailureTableRepository;
 import com.mastertbal.csvbackend.service.FailureTableService;
